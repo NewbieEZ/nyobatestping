@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, render_template, request
 
 # Create a Flask application
 app = Flask(__name__)
@@ -6,14 +6,14 @@ app = Flask(__name__)
 # Define a route for the root URL
 @app.route('/')
 def index():
-    return 'Usage: /add?a=<int>&b=<int> to add two integers a and b.'
+    return render_template('index.html')
 
 # Define a route for addition
-@app.route('/add')
+@app.route('/add', methods=['POST'])
 def add():
-    # Get the values of 'a' and 'b' from the query parameters
-    a = int(request.args.get('a'))
-    b = int(request.args.get('b'))
+    # Get the values of 'a' and 'b' from the form
+    a = int(request.form['a'])
+    b = int(request.form['b'])
     
     # Perform addition
     result = a + b
